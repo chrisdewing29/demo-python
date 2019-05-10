@@ -7,6 +7,8 @@ from selenium import webdriver
 from _pytest.runner import runtestprotocol
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 @pytest.fixture
 @pytest.mark.onboarding
@@ -21,6 +23,8 @@ def driver(request):
         'seleniumVersion': '3.141.59',
         'build': 'Onboarding Sample App - Python-pytest',
         'name': '3-cross-browser',
+        # remove line below if not using Sauce Connect
+        'tunnelIdentifier': 'demo-python-tunnel',
         'username': sauce_username,
         'accessKey': sauce_access_key
     }
